@@ -9,22 +9,23 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import edu.cnm.deepdive.tallycounter.R;
+import edu.cnm.deepdive.tallycounter.databinding.ActivityMainBinding;
 import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
 
   private static final String TAG = MainActivity.class.getSimpleName();
 
-  private TextView tally;
   private int counter;
+
+  private ActivityMainBinding binding;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
     Log.d(TAG, "MainActivity::onCreate");
-    setContentView(R.layout.activity_main);
-    tally = findViewById(R.id.tally);
+    binding = ActivityMainBinding.inflate(getLayoutInflater());
+    setContentView(binding.getRoot());
     if (savedInstanceState != null) {
       setCounter(savedInstanceState.getInt("counter", 0));
     } else {
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
   private void setCounter(int counter) {
     this.counter = counter;
-    tally.setText(String.valueOf(counter));
+    binding.tally.setText(String.valueOf(counter));
   }
 
 }

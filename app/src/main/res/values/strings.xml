@@ -1,0 +1,4 @@
+<resources>
+  <string name="app_name">Tally Counter</string>
+  <string name="increment_label">Increment</string>
+</resources>

@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         .get(MainViewModel.class);
     viewModel
         .getCounter()
-        .observe(this, value -> setTallyDisplay(value));
+        .observe(this, this::setTallyDisplay);
   }
 
   public void handleIncrement(View v) {

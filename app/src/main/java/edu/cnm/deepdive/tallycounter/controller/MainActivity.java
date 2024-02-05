@@ -26,12 +26,7 @@ public class MainActivity extends AppCompatActivity {
         .get(MainViewModel.class);
     viewModel
         .getCounter()
-        .observe(this, new Observer<Integer>() {
-          @Override
-          public void onChanged(Integer value) {
-            setTallyDisplay(value);
-          }
-        });
+        .observe(this, value -> setTallyDisplay(value));
   }
 
   public void handleIncrement(View v) {

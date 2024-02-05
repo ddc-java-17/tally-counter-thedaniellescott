@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
       setCounter(0);
     }
     Button increment = findViewById(R.id.increment);
-    increment.setOnClickListener(v -> setCounter(counter + 1));
+    increment.setOnClickListener(this::handleIncrement);
   }
 
   @Override
@@ -83,11 +83,13 @@ public class MainActivity extends AppCompatActivity {
     super.onDestroy();
   }
 
+  private void handleIncrement(View v) {
+    setCounter(counter + 1);
+  }
+
   private void setCounter(int counter) {
     this.counter = counter;
     tally.setText(String.valueOf(counter));
   }
-
-
 
 }

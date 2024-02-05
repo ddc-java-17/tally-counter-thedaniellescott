@@ -21,6 +21,14 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    class IncrementListener implements OnClickListener {
+      @Override
+      public void onClick(View v) {
+        setCounter(counter + 1);
+      }
+    }
+
     Log.d(TAG, "MainActivity::onCreate");
     setContentView(R.layout.activity_main);
     tally = findViewById(R.id.tally);
@@ -49,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
   protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
     super.onRestoreInstanceState(savedInstanceState);
     Log.d(TAG, "MainActivity::onRestoreInstanceState");
-
   }
 
   @Override
@@ -88,13 +95,6 @@ public class MainActivity extends AppCompatActivity {
     tally.setText(String.valueOf(counter));
   }
 
-  private class IncrementListener implements OnClickListener {
 
-    @Override
-    public void onClick(View v) {
-      setCounter(counter + 1);
-
-    }
-  }
 
 }

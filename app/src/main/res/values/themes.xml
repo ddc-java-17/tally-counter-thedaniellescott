@@ -15,6 +15,11 @@
   </style>
 
   <style name="TallyText" parent="Theme.TallyCounter">
-    <item name="android:textSize">48sp</item>
+    <item name="android:textSize">40sp</item>
+  </style>
+
+
+  <style name="TotalText" parent="TallyText">
+    <item name="android:textStyle">italic</item>
   </style>
 </resources>

@@ -1,74 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context=".controller.MainActivity">
+<layout>
 
-  <androidx.constraintlayout.widget.Guideline
-    android:id="@+id/horizontal_guideline"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.35"/>
+  <data>
+    <variable
+      name="vm"
+      type="edu.cnm.deepdive.tallycounter.viewmodel.MainViewModel"/>
 
-  <TextView
-    android:id="@+id/tally"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    style="@style/TallyText"
-    app:layout_constraintVertical_chainStyle="packed"
-    app:layout_constraintVertical_bias="0.45"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintBottom_toTopOf="@id/increment"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    tools:text="100"/>
+  </data>
 
-  <Button
-    android:id="@+id/increment"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/increment_label"
-    android:onClick="handleIncrement"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/tally"
-    app:layout_constraintBottom_toTopOf="@id/capture_subtally"/>
+  <androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controller.MainActivity">
 
-  <Button
-    android:id="@+id/capture_subtally"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/subtally_label"
-    android:onClick="captureSubtally"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/increment"
-    app:layout_constraintBottom_toTopOf="@id/total"/>
+    <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/horizontal_guideline"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.35"/>
 
-  <TextView
-    android:id="@+id/total"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    style="@style/TotalText"
-    app:layout_constraintTop_toBottomOf="@id/capture_subtally"
-    app:layout_constraintBottom_toTopOf="@id/horizontal_guideline"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    tools:text="1000"/>
+    <TextView
+      android:id="@+id/tally"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@{String.valueOf(vm.counter)}"
+      style="@style/TallyText"
+      app:layout_constraintVertical_chainStyle="packed"
+      app:layout_constraintVertical_bias="0.45"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/increment"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      tools:text="100"/>
 
-  <ListView
-    android:id="@+id/subtallies"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:orientation="vertical"
-    app:layout_constraintTop_toBottomOf="@id/horizontal_guideline"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    tools:listitem="@layout/item_subtally"/>
+    <Button
+      android:id="@+id/increment"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/increment_label"
+      android:onClick="@{() -> vm.incrementCounterValue()}"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/tally"
+      app:layout_constraintBottom_toTopOf="@id/capture_subtally"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+      android:id="@+id/capture_subtally"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/subtally_label"
+      android:onClick="@{() -> vm.captureSubtally()}"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/increment"
+      app:layout_constraintBottom_toTopOf="@id/total"/>
+
+    <TextView
+      android:id="@+id/total"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@{String.valueOf(vm.total)}"
+      style="@style/TotalText"
+      app:layout_constraintTop_toBottomOf="@id/capture_subtally"
+      app:layout_constraintBottom_toTopOf="@id/horizontal_guideline"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      tools:text="1000"/>
+
+    <ListView
+      android:id="@+id/subtallies"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:orientation="vertical"
+      app:layout_constraintTop_toBottomOf="@id/horizontal_guideline"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      tools:listitem="@layout/item_subtally"/>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

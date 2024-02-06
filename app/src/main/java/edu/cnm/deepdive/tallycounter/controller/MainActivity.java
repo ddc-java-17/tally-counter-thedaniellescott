@@ -26,32 +26,28 @@ public class MainActivity extends AppCompatActivity {
     setupViewModel();
   }
 
-  private void setupViewModel() {
-    viewModel = new ViewModelProvider(this)
-        .get(MainViewModel.class);
-    viewModel
-        .getCounter()
-        .observe(this, this::setTallyDisplay);
-    viewModel
-        .getSubtallies()
-        .observe(this, subtallies ->
-            binding.subtallies.setAdapter(new SubtalliesAdapter(this, subtallies)));
-    viewModel
-        .getTotal()
-        .observe(this, (total) -> binding.total.setText(String.valueOf(total)));
-  }
-
-  private void setupUI() {
-    binding = ActivityMainBinding.inflate(getLayoutInflater());
-    setContentView(binding.getRoot());
-  }
-
   public void handleIncrement(View v) {
     viewModel.incrementCounterValue();
   }
 
   public void captureSubtally(View v) {
     viewModel.captureSubtally();
+  }
+
+  private void setupUI() {
+    binding = ActivityMainBinding.inflate(getLayoutInflater());
+    binding.setLifecycleOwner(this);
+    setContentView(binding.getRoot());
+  }
+
+  private void setupViewModel() {
+    viewModel = new ViewModelProvider(this)
+        .get(MainViewModel.class);
+    viewModel
+        .getSubtallies()
+        .observe(this, subtallies ->
+            binding.subtallies.setAdapter(new SubtalliesAdapter(this, subtallies)));
+    binding.setVm(viewModel);
   }
 
   private void setTallyDisplay(int counter) {
